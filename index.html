@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Are You Gay? Test</title>
+    <style>
+        .question {
+            display: none;
+        }
+
+        .question.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Are You Gay? Test</h1>
+    <form id="gayTest">
+        <div class="question active" id="question1">
+            <p>1. Are you gay?</p>
+            <label><input type="radio" name="q1" value="A"> A) Yes</label>
+            <label><input type="radio" name="q1" value="B"> B) No</label>
+            <button type="button" onclick="nextQuestion(1)">Next</button>
+        </div>
+        <div class="question" id="question2">
+            <p>2. Are you gay?</p>
+            <label><input type="radio" name="q2" value="A"> A) Yes</label>
+            <label><input type="radio" name="q2" value="B"> B) No</label>
+            <button type="button" onclick="nextQuestion(2)">Next</button>
+        </div>
+        <div class="question" id="question3">
+            <p>3. Are you gay?</p>
+            <label><input type="radio" name="q3" value="A"> A) Yes</label>
+            <label><input type="radio" name="q3" value="B"> B) No</label>
+            <button type="button" onclick="nextQuestion(3)">Next</button>
+        </div>
+        <div class="question" id="question4">
+            <p>4. Are you gay?</p>
+            <label><input type="radio" name="q4" value="A"> A) Yes</label>
+            <label><input type="radio" name="q4" value="B"> B) No</label>
+            <button type="button" onclick="nextQuestion(4)">Next</button>
+        </div>
+        <div class="question" id="question5">
+            <p>5. Are you gay?</p>
+            <label><input type="radio" name="q5" value="A"> A) Yes</label>
+            <label><input type="radio" name="q5" value="B"> B) No</label>
+            <button type="button" onclick="showResult()">Submit</button>
+        </div>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        function nextQuestion(currentQuestion) {
+            const nextQuestionId = `question${currentQuestion + 1}`;
+            const currentQuestionId = `question${currentQuestion}`;
+
+            const currentQuestionElement = document.getElementById(currentQuestionId);
+            const nextQuestionElement = document.getElementById(nextQuestionId);
+
+            // Check if the current question has an answer
+            const isAnswered = Array.from(document.getElementsByName(`q${currentQuestion}`)).some(radio => radio.checked);
+            if (!isAnswered) {
+                alert('Please select an answer before moving to the next question.');
+                return;
+            }
+
+            currentQuestionElement.classList.remove('active');
+            nextQuestionElement.classList.add('active');
+        }
+
+        function showResult() {
+            const answers = document.querySelectorAll('input[type="radio"]:checked');
+            let gayCount = 0;
+            answers.forEach(answer => {
+                if (answer.value === 'A') {
+                    gayCount++;
+                }
+            });
+
+            const percentage = (gayCount / 5) * 100;
+            const resultText = `You answered 'Yes' to ${gayCount} out of 5 questions (${percentage}%).`;
+            document.getElementById("result").innerText = resultText;
+        }
+    </script>
+</body>
+</html>
